@@ -677,6 +677,40 @@ namespace ServerManagerTool.Lib
         }
         #endregion
 
+        #region Script Files
+        public static readonly DependencyProperty BackupAfterScriptProperty = DependencyProperty.Register(nameof(BackupAfterScript), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
+        [DataMember]
+        public string BackupAfterScript
+        {
+            get { return (string)GetValue(BackupAfterScriptProperty); }
+            set { SetValue(BackupAfterScriptProperty, value); }
+        }
+
+        public static readonly DependencyProperty BackupBeforeScriptProperty = DependencyProperty.Register(nameof(BackupBeforeScript), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
+        [DataMember]
+        public string BackupBeforeScript
+        {
+            get { return (string)GetValue(BackupBeforeScriptProperty); }
+            set { SetValue(BackupBeforeScriptProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShutdownAfterScriptProperty = DependencyProperty.Register(nameof(ShutdownAfterScript), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
+        [DataMember]
+        public string ShutdownAfterScript
+        {
+            get { return (string)GetValue(ShutdownAfterScriptProperty); }
+            set { SetValue(ShutdownAfterScriptProperty, value); }
+        }
+
+        public static readonly DependencyProperty StartupBeforeScriptProperty = DependencyProperty.Register(nameof(StartupBeforeScript), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
+        [DataMember]
+        public string StartupBeforeScript
+        {
+            get { return (string)GetValue(StartupBeforeScriptProperty); }
+            set { SetValue(StartupBeforeScriptProperty, value); }
+        }
+        #endregion
+
         #region RCON
         public static readonly DependencyProperty RconWindowExtentsProperty = DependencyProperty.Register(nameof(RconWindowExtents), typeof(Rect), typeof(ServerProfile), new PropertyMetadata(new Rect(0f, 0f, 0f, 0f)));
         [DataMember]
@@ -1552,6 +1586,14 @@ namespace ServerManagerTool.Lib
             this.ClearValue(BranchNameProperty);
             this.ClearValue(BranchPasswordProperty);
         }
+
+        public void ResetScriptFiles()
+        {
+            this.ClearValue(BackupAfterScriptProperty);
+            this.ClearValue(BackupBeforeScriptProperty);
+            this.ClearValue(StartupBeforeScriptProperty);
+            this.ClearValue(ShutdownAfterScriptProperty);
+        }
         #endregion
 
         #region Sync Methods
@@ -1576,6 +1618,9 @@ namespace ServerManagerTool.Lib
                     break;
                 case ServerProfileCategory.ServerFiles:
                     SyncServerFiles(sourceProfile);
+                    break;
+                case ServerProfileCategory.ScriptFiles:
+                    SyncScriptFiles(sourceProfile);
                     break;
             }
         }
@@ -1651,6 +1696,14 @@ namespace ServerManagerTool.Lib
 
             SaveServerFileBlacklisted();
             SaveServerFileWhitelisted();
+        }
+
+        private void SyncScriptFiles(ServerProfile sourceProfile)
+        {
+            this.SetValue(BackupAfterScriptProperty, sourceProfile.BackupAfterScript);
+            this.SetValue(BackupBeforeScriptProperty, sourceProfile.BackupBeforeScript);
+            this.SetValue(StartupBeforeScriptProperty, sourceProfile.StartupBeforeScript);
+            this.SetValue(ShutdownAfterScriptProperty, sourceProfile.ShutdownAfterScript);
         }
 
         public void SyncMapSaveFileName()

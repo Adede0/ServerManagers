@@ -1294,6 +1294,22 @@
     <sys:String x:Key="ServerSettings_ServerFilesWhitelistedIdColumnLabel">Player Id</sys:String>
     <sys:String x:Key="ServerSettings_ServerFilesWhitelistedNameColumnLabel">Player Name</sys:String>
     <!--#endregion-->
+
+    <!--#region Server Settings - Script Files -->
+    <sys:String x:Key="ServerSettings_ScriptFilesLabel">Script Files</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_BackupAfterScriptLabel">After Backup:</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_BackupAfterScriptTooltip">This script will run after a server backup is performed.</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_BackupBeforeScriptLabel">Before Backup:</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_BackupBeforeScriptTooltip">This script will run before a server backup is performed.</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_StartupBeforeScriptLabel">Before Startup:</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_StartupBeforeScriptTooltip">This script will run before a server startup is performed.</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_ShutdownAfterScriptLabel">After Shutdown:</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_ShutdownAfterScriptTooltip">This script will run after a server shutdown is performed.</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_ResetButtonLabel">Reset</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_SelectionButtonLabel">...</sys:String>
+    <sys:String x:Key="ServerSettings_ScriptFiles_SelectionTitle">Select the script file to be run</sys:String>
+    <!--#endregion-->
+
     <!--#endregion-->
 
     <!--#region Server Settings - Overlay -->

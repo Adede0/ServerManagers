@@ -1388,6 +1388,10 @@ namespace ServerManagerTool
                             case ServerSettingsResetAction.ServerOptions:
                                 this.Settings.ResetServerOptions();
                                 break;
+
+                            case ServerSettingsResetAction.ScriptFilesSection:
+                                this.Settings.ResetScriptFiles();
+                                break;
                         }
                     },
                     canExecute: (action) => true
@@ -1452,6 +1456,91 @@ namespace ServerManagerTool
                     {
                         return (parameter as Server) != null;
                     }
+                );
+            }
+        }
+
+        public ICommand ScriptFileResetCommand
+        {
+            get
+            {
+                return new RelayCommand<string>(
+                    execute: (parameter) =>
+                    {
+                        switch (parameter)
+                        {
+                            case "BackupBeforeScript":
+                                Settings.BackupBeforeScript = string.Empty;
+                                break;
+                            case "BackupAfterScript":
+                                Settings.BackupAfterScript = string.Empty;
+                                break;
+                            case "StartupBeforeScript":
+                                Settings.StartupBeforeScript = string.Empty;
+                                break;
+                            case "ShutdownAfterScript":
+                                Settings.ShutdownAfterScript = string.Empty;
+                                break;
+                        }
+                    },
+                    canExecute: (action) => true
+                );
+            }
+        }
+
+        public ICommand ScriptFileSelectionCommand
+        {
+            get
+            {
+                return new RelayCommand<string>(
+                    execute: (parameter) =>
+                    {
+                        var dialog = new CommonOpenFileDialog()
+                        {
+                            EnsureFileExists = true,
+                            InitialDirectory = Config.Default.ConfigPath,
+                            Multiselect = false,
+                            Title = _globalizer.GetResourceString("ServerSettings_ScriptFiles_SelectionTitle")
+                        };
+                        dialog.Filters.Add(new CommonFileDialogFilter("Script Files", Config.Default.ScriptFilesExtensionList));
+
+                        switch (parameter)
+                        {
+                            case "BackupBeforeScript":
+                                dialog.InitialDirectory = Settings.BackupBeforeScript ?? string.Empty;
+                                break;
+                            case "BackupAfterScript":
+                                dialog.InitialDirectory = Settings.BackupAfterScript ?? string.Empty;
+                                break;
+                            case "StartupBeforeScript":
+                                dialog.InitialDirectory = Settings.StartupBeforeScript ?? string.Empty;
+                                break;
+                            case "ShutdownAfterScript":
+                                dialog.InitialDirectory = Settings.ShutdownAfterScript ?? string.Empty;
+                                break;
+                        }
+
+                        var result = dialog.ShowDialog(Window.GetWindow(this));
+                        if (result != CommonFileDialogResult.Ok)
+                            return;
+
+                        switch (parameter)
+                        {
+                            case "BackupBeforeScript":
+                                Settings.BackupBeforeScript = dialog.FileName;
+                                break;
+                            case "BackupAfterScript":
+                                Settings.BackupAfterScript = dialog.FileName;
+                                break;
+                            case "StartupBeforeScript":
+                                Settings.StartupBeforeScript = dialog.FileName;
+                                break;
+                            case "ShutdownAfterScript":
+                                Settings.ShutdownAfterScript = dialog.FileName;
+                                break;
+                        }
+                    },
+                    canExecute: (action) => true
                 );
             }
         }

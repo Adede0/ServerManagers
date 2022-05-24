@@ -2426,5 +2426,26 @@ namespace ServerManagerTool {
                 this["AutoStart_TaskPriority"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SectionScriptFilesIsExpanded {
+            get {
+                return ((bool)(this["SectionScriptFilesIsExpanded"]));
+            }
+            set {
+                this["SectionScriptFilesIsExpanded"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*.bat")]
+        public string ScriptFilesExtensionList {
+            get {
+                return ((string)(this["ScriptFilesExtensionList"]));
+            }
+        }
     }
 }

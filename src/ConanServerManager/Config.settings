@@ -665,5 +665,11 @@
     <Setting Name="AutoStart_TaskPriority" Type="System.Diagnostics.ProcessPriorityClass" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
+    <Setting Name="SectionScriptFilesIsExpanded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ScriptFilesExtensionList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">*.bat</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

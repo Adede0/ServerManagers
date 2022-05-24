@@ -7,5 +7,6 @@
         DiscordBot,
         ServerDetails,
         ServerFiles,
+        ScriptFiles,
     }
 }

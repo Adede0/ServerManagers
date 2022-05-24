@@ -19,7 +19,7 @@
                 <ResourceDictionary Source="..\Styles\Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <ControlTemplate x:Key="ExpanderTemplateSE" TargetType="{x:Type Expander}">
+            <ControlTemplate x:Key="ExpanderTemplate" TargetType="{x:Type Expander}">
                 <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" SnapsToDevicePixels="true" Padding="1" Margin="0,0,0,3" BorderBrush="Black">
                     <DockPanel Background="#FFEAE7E0">
                         <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="4,4,1,4" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -404,7 +404,7 @@
 
                             <Expander.Style>
                                 <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
                                 </Style>
                             </Expander.Style>
 
@@ -863,7 +863,7 @@
 
                             <Expander.Style>
                                 <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
                                 </Style>
                             </Expander.Style>
 
@@ -1030,7 +1030,7 @@
 
                             <Expander.Style>
                                 <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
                                 </Style>
                             </Expander.Style>
 
@@ -1095,7 +1095,7 @@
 
                             <Expander.Style>
                                 <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
                                 </Style>
                             </Expander.Style>
 
@@ -1176,7 +1176,7 @@
 
                             <Expander.Style>
                                 <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
                                 </Style>
                             </Expander.Style>
 
@@ -1371,6 +1371,61 @@
                                 </GroupBox>
 
                                 <GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="5" ShowsPreview="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" Opacity="0"/>
+                            </Grid>
+                        </Expander>
+
+                        <Expander Name="SectionScriptFiles" IsExpanded="{Binding Config.SectionScriptFilesIsExpanded, ElementName=SettingsControl, FallbackValue=True, Mode=TwoWay}">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{DynamicResource ServerSettings_ScriptFilesLabel}" Style="{StaticResource ExpanderHeaderTextStyle}"/>
+                                    <Button Margin="20,0,0,0" ToolTip="{DynamicResource ServerSettings_ResetSectionTooltip}" Style="{StaticResource ButtonStyle1}"
+                                            IsEnabled="{Binding ElementName=SectionScriptFiles, Path=IsExpanded}"
+                                            Command="{Binding ResetActionCommand, ElementName=SettingsControl}" CommandParameter="{x:Static enum:ServerSettingsResetAction.ScriptFilesSection}">
+                                        <Image Source="{com:Icon Path=/ConanServerManager;component/Art/Refresh.ico,Size=32}"/>
+                                    </Button>
+                                </StackPanel>
+                            </Expander.Header>
+
+                            <Expander.Style>
+                                <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
+                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplate}"/>
+                                </Style>
+                            </Expander.Style>
+
+                            <Grid Margin="-8,0,2,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ServerSettings_ScriptFiles_BackupBeforeScriptLabel}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_BackupBeforeScriptTooltip}" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Margin="1" Text="{Binding BackupBeforeScript, Mode=TwoWay}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_BackupBeforeScriptTooltip}" VerticalContentAlignment="Center" IsReadOnly="True" />
+                                <Button Grid.Row="0" Grid.Column="2" Margin="1" Width="22" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_SelectionButtonLabel}" Command="{Binding ScriptFileSelectionCommand, ElementName=SettingsControl}" CommandParameter="BackupBeforeScript"/>
+                                <Button Grid.Row="0" Grid.Column="3" Margin="1" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_ResetButtonLabel}" Command="{Binding ScriptFileResetCommand, ElementName=SettingsControl}" CommandParameter="BackupBeforeScript"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource ServerSettings_ScriptFiles_BackupAfterScriptLabel}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_BackupAfterScriptTooltip}" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Margin="1" Text="{Binding BackupAfterScript, Mode=TwoWay}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_BackupAfterScriptTooltip}" VerticalContentAlignment="Center" IsReadOnly="True" />
+                                <Button Grid.Row="1" Grid.Column="2" Margin="1" Width="22" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_SelectionButtonLabel}" Command="{Binding ScriptFileSelectionCommand, ElementName=SettingsControl}" CommandParameter="BackupAfterScript"/>
+                                <Button Grid.Row="1" Grid.Column="3" Margin="1" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_ResetButtonLabel}" Command="{Binding ScriptFileResetCommand, ElementName=SettingsControl}" CommandParameter="BackupAfterScript"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource ServerSettings_ScriptFiles_StartupBeforeScriptLabel}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_StartupBeforeScriptTooltip}" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Margin="1" Text="{Binding StartupBeforeScript, Mode=TwoWay}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_StartupBeforeScriptTooltip}" VerticalContentAlignment="Center" IsReadOnly="True" />
+                                <Button Grid.Row="2" Grid.Column="2" Margin="1" Width="22" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_SelectionButtonLabel}" Command="{Binding ScriptFileSelectionCommand, ElementName=SettingsControl}" CommandParameter="StartupBeforeScript"/>
+                                <Button Grid.Row="2" Grid.Column="3" Margin="1" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_ResetButtonLabel}" Command="{Binding ScriptFileResetCommand, ElementName=SettingsControl}" CommandParameter="StartupBeforeScript"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource ServerSettings_ScriptFiles_ShutdownAfterScriptLabel}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_ShutdownAfterScriptTooltip}" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" Margin="1" Text="{Binding ShutdownAfterScript, Mode=TwoWay}" ToolTip="{DynamicResource ServerSettings_ScriptFiles_ShutdownAfterScriptTooltip}" VerticalContentAlignment="Center" IsReadOnly="True" />
+                                <Button Grid.Row="3" Grid.Column="2" Margin="1" Width="22" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_SelectionButtonLabel}" Command="{Binding ScriptFileSelectionCommand, ElementName=SettingsControl}" CommandParameter="ShutdownAfterScript"/>
+                                <Button Grid.Row="3" Grid.Column="3" Margin="1" HorizontalAlignment="Left" Content="{DynamicResource ServerSettings_ScriptFiles_ResetButtonLabel}" Command="{Binding ScriptFileResetCommand, ElementName=SettingsControl}" CommandParameter="ShutdownAfterScript"/>
+
                             </Grid>
                         </Expander>
 

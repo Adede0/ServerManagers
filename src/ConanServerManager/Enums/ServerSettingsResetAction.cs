@@ -6,6 +6,7 @@
         AdministrationSection,
         DiscordBotSection,
         ServerDetailsSection,
+        ScriptFilesSection,
 
         // Properties
         RconWindowExtents,
